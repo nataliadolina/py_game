@@ -37,7 +37,7 @@ class Bomb(pygame.sprite.Sprite):
         self.img = Bomb.image_boom
         self.rect = self.image.get_rect()
 
-    def peresek(self, x, y):
+    def peresek(self, x=0, y=0):
         x1, y1, a1, b1 = self.rect.x, self.rect.y, 100, 101
         x2, y2, a2, b2 = x, y, 100, 101
         x_0, y_0 = x1, y1
@@ -87,4 +87,3 @@ while running:
             for i in all_sprites:
                 i.get_event(event)
     pygame.display.flip()
-
