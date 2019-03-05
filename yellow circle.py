@@ -5,7 +5,6 @@ w = 800
 h = 600
 r = 0
 FPS = 50
-window = pygame.display.set_mode((w, h))
 clock = pygame.time.Clock()
 size = width, height = w, h
 screen = pygame.display.set_mode(size)
@@ -21,6 +20,6 @@ while running:
             r = 0
     if p is not None:
         r += 100 // FPS
-        pygame.draw.circle(window, pygame.Color('Yellow'), p, r)
+        pygame.draw.circle(screen, pygame.Color('Yellow'), p, r)
     clock.tick(FPS)
     pygame.display.flip()
