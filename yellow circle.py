@@ -15,7 +15,7 @@ while running:
     screen.fill((0, 0, 255))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit()
+            quit()
         if event.type == pygame.MOUSEBUTTONUP:
             p = event.pos
             r = 0
