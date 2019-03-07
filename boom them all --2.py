@@ -24,9 +24,6 @@ def load_image(name, colorkey=None):
     return image
 
 
-arr = []
-
-
 class Bomb(pygame.sprite.Sprite):
     image = load_image("bomb2.png")
     image_boom = load_image("boom.png")
@@ -37,27 +34,14 @@ class Bomb(pygame.sprite.Sprite):
         self.img = Bomb.image_boom
         self.rect = self.image.get_rect()
 
-    def peresek(self, x=0, y=0):
-        x1, y1, a1, b1 = self.rect.x, self.rect.y, 100, 101
-        x2, y2, a2, b2 = x, y, 100, 101
-        x_0, y_0 = x1, y1
-        x_1, y_1 = x1 + a1, y1 + b1
-        x_2, y_2 = x2, y2
-        x_3, y_3 = x2 + a2, y2 + b2
-        if x_0 > x_3 or x_1 < x_2 or y_0 > y_3 or y_1 < y_2:
-            return False
-        else:
-            return True
-
     def coords(self):
-        self.rect.x = randrange(400)
-        self.rect.y = randrange(399)
-        for i in arr:
-            x0, y0 = i
-            while self.peresek(x0, y0):
-                self.rect.x = randrange(400)
-                self.rect.y = randrange(399)
-        arr.append((self.rect.x, self.rect.y))
+        x, y = randrange(0, 401), randrange(0, 400)
+        self.rect = self.rect.move(x, y)
+        all_sprites.remove(self)
+        while pygame.sprite.spritecollideany(self, all_sprites):
+            x, y = randrange(400), randrange(399)
+            self.rect = self.rect.move(x, y)
+        all_sprites.add(self)
 
     def get_event(self, event):
         if self.rect.collidepoint(event.pos):
@@ -81,7 +65,6 @@ while running:
     all_sprites.update()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            print(arr)
             quit()
         if event.type == pygame.MOUSEBUTTONUP:
             for i in all_sprites:
